@@ -78,7 +78,9 @@ This repository contains scripts to easily set up an OpenVPN server using Docker
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details
+This project uses the [kylemanna/openvpn](https://github.com/kylemanna/docker-openvpn) Docker image which is licensed under the GNU General Public License v2.0 (GPL-2.0). As such, this project is also distributed under the terms of GNU General Public License v2.0.
+
+The setup and configuration scripts in this repository that wrap the Docker image are also licensed under GPL-2.0 to maintain license compatibility.
 
 ## Contributing
 
