@@ -1,6 +1,35 @@
 # Docker OpenVPN Server Setup
 
-This repository contains scripts to easily set up an OpenVPN server using Docker containers. It supports multiple cloud providers and makes it simple to manage client certificates.
+This repository con6. Find your client configuration:
+   - The script will create a file named `client-name.ovpn`
+   - Transfer this file securely to your client device
+
+## Directory Structure After Setup
+
+After running the setup script, your directory structure will look like this:
+```
+.
+├── README.md
+├── create-client.sh
+├── docker-compose.yaml
+├── openvpn-data/
+│   └── conf/
+│       ├── ccd/
+│       ├── crl.pem
+│       ├── openvpn.conf
+│       ├── ovpn_env.sh
+│       ├── pki/
+│       └── server.conf
+└── setup-openvpn.sh
+```
+
+Key files:
+- `server.conf`: Contains the server configuration including routing rules
+- `openvpn.conf`: Main OpenVPN configuration file
+- `pki/`: Contains all certificates and keys
+- `ccd/`: Client-specific configurations directory
+
+## Client Setup scripts to easily set up an OpenVPN server using Docker containers. It supports multiple cloud providers and makes it simple to manage client certificates.
 
 ## Prerequisites
 
@@ -38,7 +67,13 @@ This repository contains scripts to easily set up an OpenVPN server using Docker
    - Choose your cloud provider when prompted
    - Set a passphrase for the PKI when asked (remember this!)
 
-4. Create a client certificate:
+4. Configure traffic routing:
+   ```bash
+   echo 'push "redirect-gateway def1"' > openvpn-data/conf/server.conf
+   ```
+   This configuration ensures that all client traffic is routed through the VPN.
+
+5. Create a client certificate:
    ```bash
    ./create-client.sh client-name
    ```
