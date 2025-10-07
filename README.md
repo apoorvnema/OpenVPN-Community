@@ -1,6 +1,6 @@
 # Docker OpenVPN Server Setup
 
-This repository con6. Find your client configuration:
+This repository contains scripts to easily set up an OpenVPN server using Docker containers. It supports multiple cloud providers and simplifies client certificate management.
    - The script will create a file named `client-name.ovpn`
    - Transfer this file securely to your client device
 
