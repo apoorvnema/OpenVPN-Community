@@ -12,6 +12,7 @@ After running the setup script, your directory structure will look like this:
 ├── README.md
 ├── create-client.sh
 ├── docker-compose.yaml
+├── list-clients.sh
 ├── openvpn-data/
 │   └── conf/
 │       ├── ccd/
@@ -20,6 +21,7 @@ After running the setup script, your directory structure will look like this:
 │       ├── ovpn_env.sh
 │       ├── pki/
 │       └── server.conf
+├── revoke-client.sh
 └── setup-openvpn.sh
 ```
 
@@ -57,7 +59,7 @@ Key files:
 
 2. Make the scripts executable:
    ```bash
-   chmod +x setup-openvpn.sh create-client.sh
+   chmod +x setup-openvpn.sh create-client.sh revoke-client.sh list-clients.sh
    ```
 
 3. Run the setup script:
@@ -101,6 +103,18 @@ Key files:
   ./create-client.sh another-client
   ```
 
+- To revoke a client certificate (asks for confirmation and the PKI passphrase, then deletes the local `.ovpn` file):
+  ```bash
+  ./revoke-client.sh client-name
+  ```
+  The server picks up the updated CRL automatically; to be certain, restart it with `docker-compose restart openvpn`.
+
+- To list all clients with their status (ACTIVE/OFFLINE), last login, session duration and real IP:
+  ```bash
+  ./list-clients.sh
+  ```
+  Requires the `openvpn` container to be running and GNU awk (`gawk`) on the host.
+
 - Each client gets their own `.ovpn` file
 - Keep these files secure as they contain the certificates needed to connect to your VPN
 
@@ -109,7 +123,7 @@ Key files:
 - Store the PKI passphrase safely
 - Keep `.ovpn` files secure
 - Each client should have their own certificate
-- Revocation process is not included in these basic scripts
+- Revoke certificates of lost devices or departed users with `./revoke-client.sh`
 
 ## License
 
